@@ -58,7 +58,11 @@ const DATABASE = [
 ];
 
 export function findContactByPhone(phone) {
-  if (phone !== undefined) {
-    return DATABASE.find((element) => element.phone === phone);
+  var result = DATABASE.find((element) => element.phone === phone);
+  if (result !== undefined) {
+    return result;
+  } else {
+    alert("Cannot find any contacts.");
+    return {};
   }
 }
