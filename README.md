@@ -17,7 +17,6 @@ The contact information includes:
 - Status
 - Email
 - Company
+- Facebook
  
-## Note
- 
-This is my first practice project using react library. The reason behind using code sandbox ide is that I don't know how to set up a fully functional environment for developing React project. :joy:
+

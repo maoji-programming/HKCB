@@ -11,7 +11,8 @@ const DATABASE = [
     status: "",
     company: "",
     email: "",
-    birthday: ""
+    birthday: "",
+    fuid: "10009100"
   },
   {
     phone: "90000002",
@@ -25,7 +26,8 @@ const DATABASE = [
     status: "Married",
     company: "CUHK",
     email: "lokl032@link.cuhk.edu.hk",
-    birthday: "1997-07-01 12:00:00"
+    birthday: "1997-07-01 12:00:00",
+    fuid: "10009200"
   },
   {
     phone: "90000003",
@@ -39,7 +41,8 @@ const DATABASE = [
     status: "Single",
     company: "",
     email: "",
-    birthday: "1998-07-02 12:00:00"
+    birthday: "1998-07-02 12:00:00",
+    fuid: "10009300"
   },
   {
     phone: "61234567",
@@ -53,7 +56,8 @@ const DATABASE = [
     status: "Single",
     company: "五毛",
     email: "",
-    birthday: ""
+    birthday: "",
+    fuid: "10043839213"
   }
 ];
 
@@ -63,6 +67,9 @@ export function findContactByPhone(phone) {
     return result;
   } else {
     alert("Cannot find any contacts.");
-    return {};
+    return {
+      firstname: "Unfound",
+      lastname: "Person",
+    };
   }
 }

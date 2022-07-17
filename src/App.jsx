@@ -1,10 +1,9 @@
-import "./styles.css";
+import "./styles.scss";
 import * as React from "react";
 
-import Query from "./components/Query";
-
+import Profile from "./components/Profile";
 export default class App extends React.Component {
   render() {
-    return <Query />;
+    return <Profile />;
   }
 }
