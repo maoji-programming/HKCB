@@ -3,6 +3,8 @@ import male from "../resources/man.png";
 import female from "../resources/girl.png";
 import nosex from "../resources/user.png";
 //import nosex from "";
+import config from "../config.json"
+import Axios from "axios";
 import * as React from "react";
 import { Skeleton } from "@material-ui/lab";
 import { Grid, FormLabel, TextField } from "@material-ui/core";
@@ -10,7 +12,7 @@ import PublicIcon from "@material-ui/icons/Public";
 import HomeIcon from "@material-ui/icons/Home";
 import BusinessIcon from "@material-ui/icons/Business";
 import { InputAdornment } from "@material-ui/core";
-import { findContactByPhone } from "../utils/DataUtil";
+import { findContactByPhone } from "./Interaction";
 
 const INITIAL = {
   input: {
@@ -23,45 +25,60 @@ const INITIAL = {
     firstname: "",
     lastname: "",
     birthday: "",
-    status: "",
+    love_status: "",
 
     country: "",
     address: "",
     company: "",
-
+    create_date:"",
     email: "",
     fuid: ""
   }
 };
 
 export default class Profile extends React.Component {
+  loading = false;
+  state = INITIAL;
+
   constructor(props) {
     super(props);
-    this.loading = true;
-    this.state = INITIAL;
+    
     this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this);
     this.handleSexChange = this.handleSexChange.bind(this);
+    
   }
+  
   retrieveFromDB(p) {
     return this.data.find((element) => element.phone === p);
   }
+
   handlePhoneNumberChange(e) {
     const onlyNums = e.target.value.replace(/[^0-9]/g, "");
     if (onlyNums.length < 8) {
-      this.loading = true;
+      
       this.setState({
         input: { phone: onlyNums, exportphone: "" },
         output: { ...INITIAL.output }
       });
     } else if (onlyNums.length === 8) {
-      this.loading = false;
-      const num = onlyNums.replace(/(\d{8})/, "$1");
+      this.loading = true;
       this.setState({
-        input: { phone: num, exportphone: num },
-        output: findContactByPhone(num)
+        input: { phone: onlyNums, exportphone: "" },
+        output: { ...INITIAL.output }
       });
+      const num = onlyNums.replace(/(\d{8})/, "$1");
+      findContactByPhone(num).then(
+        (res) => {
+          this.setState({
+            input: { phone: onlyNums, exportphone: num},
+            output: JSON.parse(res)
+          });
+          this.loading = false;
+        }
+      )
     }
   }
+
   handleSexChange() {
     if (this.state.output.gender === "male") {
       return male;
@@ -127,35 +144,35 @@ export default class Profile extends React.Component {
           </Grid>
           <Grid item container spacing={1} className="Intro">
             <Grid item sm={10} xs={11}>
-              <Skeleton variant="rectangular" />
+              <Skeleton variant="rect" />
             </Grid>
             <Grid item className="I2" sm={5} xs={11}>
-              <Skeleton variant="rectangular" />
+              <Skeleton variant="rect" />
               <br />
-              <Skeleton variant="rectangular" />
+              <Skeleton variant="rect" />
             </Grid>
             <Grid item className="I2" sm={5} xs={11}>
-              <Skeleton variant="rectangular" />
+              <Skeleton variant="rect" />
               <br />
-              <Skeleton variant="rectangular" />
+              <Skeleton variant="rect" />
             </Grid>
           </Grid>
         </Grid>
         <Grid container spacing={2} item className="Detail">
           <Grid item className="DC" sm={4} xs={12}>
-            <Skeleton variant="rectangular" />
+            <Skeleton variant="rect" />
             <br />
-            <Skeleton variant="rectangular" height="180px" />
+            <Skeleton variant="rect" height="flex" />
           </Grid>
           <Grid item className="DC" sm={4} xs={12}>
-            <Skeleton variant="rectangular" />
+            <Skeleton variant="rect" />
             <br />
-            <Skeleton variant="rectangular" height="180px" />
+            <Skeleton variant="rect" height="flex" />
           </Grid>
           <Grid item className="DC" sm={4} xs={12}>
-            <Skeleton variant="rectangular" />
+            <Skeleton variant="rect" />
             <br />
-            <Skeleton variant="rectangular" height="180px" />
+            <Skeleton variant="rect" height="flex" />
           </Grid>
         </Grid>
         {this.query()}
@@ -177,7 +194,7 @@ export default class Profile extends React.Component {
             </Grid>
             <Grid item className="I2" sm={6} xs={12}>
               <div className="Tag">Status</div>
-              <span>{this.state.output.status}</span>
+              <span>{this.state.output.love_status}</span>
             </Grid>
           </Grid>
         </Grid>

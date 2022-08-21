@@ -29,7 +29,7 @@
   left: 50%;
   transform: translate(-50%, -50%); 
   
-  width: 435px !important;
+  max-width: 435px !important;
   height: 700px;
   border-radius: 10px;
   box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
@@ -80,10 +80,11 @@
   .Bottom {
     position: absolute;
     margin: auto;
+    padding: 12px 12px !important;
     bottom: 0;
     right: 0;
     left: 0;
-    height: 200px;
+    height: 250px;
     background: #aeeaff;
     padding: 24px 12px;
   }
